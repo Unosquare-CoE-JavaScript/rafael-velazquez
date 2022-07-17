@@ -17,6 +17,16 @@
 
 - By using worker threads
 
-- By using standard libraries written in C++
+- By using standard libraries written in C++, sucha as fs, util, crypto.
 
 - By using OS operations such as HTTPS
+
+- By adding caching, for example, Redis
+    ```bash
+    node
+    const redis = require('redis')
+    const redisUrl = 'redis://127.0.0.1:6379'
+    const client = redis.createClient(redisUrl)
+    client.flushall();
+    ```
+
