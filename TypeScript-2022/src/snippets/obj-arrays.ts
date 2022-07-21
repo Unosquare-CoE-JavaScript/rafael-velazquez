@@ -21,3 +21,6 @@ console.log(person.role);
 for (const hobby of person.hobbies) {
     console.log(hobby.toUpperCase());
 }
+
+const hobby1 = person?.hobbies?.[1] ?? 'none';
+console.log(hobby1);
