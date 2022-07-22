@@ -52,4 +52,4 @@ catch (e) {
 }
 itDepartment.lastAdmin = 'RAFA V';
 console.log('Last admin', itDepartment.lastAdmin);
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=classes.js.map
