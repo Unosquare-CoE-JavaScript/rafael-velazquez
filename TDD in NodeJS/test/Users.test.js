@@ -24,7 +24,7 @@ describe('Get users suite', function() {
     });
 
     it('Can call getUsers function', function() {
-        getUsers();
+        getUsers(function(){});
     });
 
     it('Calls the callback', function() {
