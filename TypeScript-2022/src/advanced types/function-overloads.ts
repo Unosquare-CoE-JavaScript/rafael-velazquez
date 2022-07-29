@@ -1,9 +1,9 @@
 
 type Combinables = string | number;
 
-function add(a: number, b: number): number;
-function add(a: string, b: string): string;
-function add(a: Combinables, b: Combinables) {
+function adds(a: number, b: number): number;
+function adds(a: string, b: string): string;
+function adds(a: Combinables, b: Combinables) {
     if (typeof a === 'string' || typeof b === 'string') {
         return a.toString() + b.toString();
     }
@@ -11,5 +11,5 @@ function add(a: Combinables, b: Combinables) {
     return a + b;
 }
 
-const result = add('RF', 'Vela');
-const sum = add(4, 5);
+const result = adds('RF', 'Vela');
+const sum = adds(4, 5);
