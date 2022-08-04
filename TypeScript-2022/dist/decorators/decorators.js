@@ -12,20 +12,25 @@ function Logger(title) {
     };
 }
 function WithTemplate(template, hookId) {
-    return function (constructor) {
+    console.log('Template factory');
+    return function (originalConstructor) {
         console.log('@WithTemplate', hookId);
-        const hookEl = document.getElementById(hookId);
-        const p = new constructor();
-        if (hookEl) {
-            hookEl.innerHTML = template;
-            const h1Elem = hookEl.querySelector('h1');
-            h1Elem.textContent = h1Elem.textContent + ': ' + p.name;
-        }
+        return class extends originalConstructor {
+            constructor(..._) {
+                super();
+                const hookEl = document.getElementById(hookId);
+                if (hookEl) {
+                    hookEl.innerHTML = template;
+                    const h1Elem = hookEl.querySelector('h1');
+                    h1Elem.textContent = h1Elem.textContent + ': ' + this.name;
+                }
+            }
+        };
     };
 }
 let Person = class Person {
     constructor() {
-        this.name = 'Rafa';
+        this.name = 'Rafa V';
         console.log('Creating person object...');
     }
 };

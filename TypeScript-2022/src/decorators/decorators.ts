@@ -7,14 +7,23 @@ function Logger(title: string) {
 }
 
 function WithTemplate(template: string, hookId: string) {
-    return function(constructor: any) {
+    console.log('Template factory');
+    return function<T extends {new(...args: any[]): { name: string }}>(originalConstructor: T) {
+        // Runs when the class is defined
         console.log('@WithTemplate', hookId);
-        const hookEl = document.getElementById(hookId);
-        const p = new constructor();
-        if (hookEl) {
-            hookEl.innerHTML = template;
-            const h1Elem = hookEl.querySelector('h1')!;
-            h1Elem.textContent = h1Elem.textContent + ': ' + p.name;
+        return class extends originalConstructor {
+            // Runs when the class is instantiated
+            constructor(..._: any[]) {
+                super();
+
+                const hookEl = document.getElementById(hookId);
+        
+                if (hookEl) {
+                    hookEl.innerHTML = template;
+                    const h1Elem = hookEl.querySelector('h1')!;
+                    h1Elem.textContent = h1Elem.textContent + ': ' + this.name;
+                }
+            }
         }
     }
 }
@@ -22,7 +31,7 @@ function WithTemplate(template: string, hookId: string) {
 @Logger('Person class')
 @WithTemplate('<h1>My person object</h1>', 'app')
 class Person {
-    name = 'Rafa';
+    name = 'Rafa V';
 
     constructor() {
         console.log('Creating person object...');
@@ -31,4 +40,3 @@ class Person {
 
 const person1 = new Person();
 console.log(person1);
-

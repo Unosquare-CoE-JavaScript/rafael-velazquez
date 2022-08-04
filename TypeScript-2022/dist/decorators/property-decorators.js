@@ -56,4 +56,32 @@ __decorate([
     LogMethod,
     __param(0, LogParam)
 ], Product.prototype, "getTax", null);
+const Autobind = (_target, _method, descriptor) => {
+    const originalMethod = descriptor.value;
+    const edjDescriptor = {
+        configurable: true,
+        enumerable: false,
+        get() {
+            console.log('binding');
+            const boundFn = originalMethod.bind(this);
+            return boundFn;
+        }
+    };
+    return edjDescriptor;
+};
+class Printer {
+    constructor() {
+        this.message = 'This works';
+    }
+    showMessage() {
+        console.log(this.message);
+    }
+}
+__decorate([
+    Autobind
+], Printer.prototype, "showMessage", null);
+const p = new Printer();
+p.showMessage();
+const button = document.querySelector('button');
+button.addEventListener('click', p.showMessage);
 //# sourceMappingURL=property-decorators.js.map
