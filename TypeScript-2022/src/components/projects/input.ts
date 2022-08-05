@@ -1,7 +1,7 @@
-import { autobind } from "../../decorators/autobind.js";
+import { autobind as Autobind } from "../../decorators/autobind.js";
 import { projectState } from "../../state/project-state.js";
-import { Validatable, validateInput } from "../../util/validation.js";
-import { Component } from "../base-component.js";
+import * as Validation from "../../util/validation.js";
+import Component from "../base-component.js";
 
 export class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
     titleElement: HTMLInputElement;
@@ -23,27 +23,27 @@ export class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
         const enteredDescription = this.descriptionElement.value;
         const enteredPeople = this.peopleElement.value;
 
-        const titleValidatable: Validatable = {
+        const titleValidatable: Validation.Validatable = {
             value: enteredTitle,
             required: true,
             maxLength: 20
         }
 
-        const descriptionValidatable: Validatable = {
+        const descriptionValidatable: Validation.Validatable = {
             value: enteredDescription,
             required: true,
             minLength: 5,
             maxLength: 100
         }
 
-        const peopleValidatable: Validatable = {
+        const peopleValidatable: Validation.Validatable = {
             value: +enteredPeople,
             required: true,
             min: 1,
             max: 100
         }
 
-        if (!validateInput(titleValidatable) || !validateInput(descriptionValidatable) || !validateInput(peopleValidatable)) {
+        if (!Validation.validateInput(titleValidatable) || !Validation.validateInput(descriptionValidatable) || !Validation.validateInput(peopleValidatable)) {
             alert('Check your data and try again.');
             return;
         }
@@ -51,7 +51,7 @@ export class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
         return [enteredTitle, enteredDescription, +enteredPeople];
     }
 
-    @autobind
+    @Autobind
     private submitHandler(event: Event) {
         event.preventDefault();
         console.log(this.titleElement.value);
