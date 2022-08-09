@@ -1,6 +1,6 @@
-import { ProjectInput } from "./components/projects/input.js";
-import { ProjectList } from "./components/projects/list.js";
-import { ProjectState } from "./state/project-state.js";
+import { ProjectInput } from "./components/projects/input";
+import { ProjectList } from "./components/projects/list";
+import { ProjectState } from "./state/project-state";
 
 ProjectState.getInstance();
 
