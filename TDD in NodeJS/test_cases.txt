@@ -1,0 +1,4 @@
+x Can call getUsers
+x Verify callback is called once
+x Verify connect URL is called
+x Check callback returns correct data
