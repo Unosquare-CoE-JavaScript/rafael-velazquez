@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 .vscode
 .DS_Store
 .env
+=======
+.DS_Store
+.vscode
+>>>>>>> feature/nodejs-advanced
 node_modules
