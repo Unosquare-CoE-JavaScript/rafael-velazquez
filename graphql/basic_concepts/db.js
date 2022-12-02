@@ -1,21 +1,17 @@
-const { ApolloServer, gql } = require('apollo-server');
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-    products: [Product!]!
-    product(id: ID!): Product
-  }
-  type Product {
-    id: ID!
-    price: Float
-    name: String
-    quantity: Int
-    onSale: Boolean
-    description: String
-    image: String
-  }
-`;
+const categories = [
+  {
+    id: 'ae45-bfaedce1f147',
+    name: 'Garden',
+  },
+  {
+    id: '871f-cef66f86f7f6',
+    name: 'Cooking',
+  },
+  {
+    id: 'aed6-d6b44087e5a1',
+    name: 'Sports',
+  },
+];
 
 const products = [
   {
@@ -25,7 +21,9 @@ const products = [
     quantity: 230,
     price: 42.44,
     image: 'img-1',
-    onSale: false,
+    onSale: true,
+    avgRating: 4,
+    categoryId: 'aed6-d6b44087e5a1',
   },
   {
     id: 'c2af9adc-d0b8-4d44-871f-cef66f86f7f6',
@@ -35,6 +33,8 @@ const products = [
     price: 53.5,
     image: 'img-2',
     onSale: false,
+    avgRating: 4,
+    categoryId: '871f-cef66f86f7f6',
   },
   {
     id: '2c931e7e-510f-49e5-aed6-d6b44087e5a1',
@@ -44,6 +44,8 @@ const products = [
     price: 1.33,
     image: 'img-3',
     onSale: true,
+    avgRating: 3,
+    categoryId: '871f-cef66f86f7f6',
   },
   {
     id: '404daf2a-9b97-4b99-b9af-614d07f818d7',
@@ -53,6 +55,8 @@ const products = [
     price: 332,
     image: 'img-4',
     onSale: false,
+    avgRating: 4,
+    categoryId: 'aed6-d6b44087e5a1',
   },
   {
     id: '6379c436-9fad-4b3f-a427-2d7241f5c1b1',
@@ -62,6 +66,8 @@ const products = [
     price: 23.11,
     image: 'img-5',
     onSale: true,
+    avgRating: 5,
+    categoryId: 'aed6-d6b44087e5a1',
   },
   {
     id: 'f01bcdec-6783-464e-8f9e-8416830f7569',
@@ -71,6 +77,8 @@ const products = [
     price: 59.99,
     image: 'img-6',
     onSale: true,
+    avgRating: 5,
+    categoryId: 'aed6-d6b44087e5a1',
   },
   {
     id: 'a4824a31-5c83-42af-8c1b-6e2461aae1ef',
@@ -80,6 +88,8 @@ const products = [
     price: 427.44,
     image: 'img-7',
     onSale: false,
+    avgRating: 4,
+    categoryId: 'aed6-d6b44087e5a1',
   },
   {
     id: 'b553085a-a7e0-4c9b-8a12-f971919c3683',
@@ -89,6 +99,8 @@ const products = [
     price: 77.0,
     image: 'img-8',
     onSale: true,
+    avgRating: 3,
+    categoryId: 'aed6-d6b44087e5a1',
   },
   {
     id: '47bf3941-9c8b-42c0-9c72-7f3985492a5b',
@@ -98,26 +110,40 @@ const products = [
     price: 93.44,
     image: 'img-9',
     onSale: false,
+    avgRating: 4,
+    categoryId: 'aed6-d6b44087e5a1',
   },
 ];
 
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!!!',
-    products: () => {
-      return products;
-    },
-    product: (_parent, args, _context) => {
-      return products.find((product) => product.id === args.id);
-    },
+const reviews = [
+  {
+    id: '871f',
+    date: '2020-01-01',
+    rating: 5,
+    comment: 'This is a great product',
+    title: 'Great Product',
+    productId: '53a0724c-a416-4cac-ae45-bfaedce1f147',
   },
-};
+  {
+    id: 'aed6',
+    date: '2020-01-01',
+    rating: 5,
+    comment: 'It is small, but it works',
+    title: 'Small, but works',
+    productId: '2c931e7e-510f-49e5-aed6-d6b44087e5a1',
+  },
+  {
+    id: 'ae45',
+    date: '2020-10-31',
+    rating: 3,
+    comment: 'It is ok',
+    title: 'It is ok',
+    productId: '53a0724c-a416-4cac-ae45-bfaedce1f147',
+  }
+];
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
-
-server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+exports.db = {
+  categories,
+  products,
+  reviews,
+}
